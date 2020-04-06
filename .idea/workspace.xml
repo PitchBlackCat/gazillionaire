@@ -55,8 +55,8 @@
       <file leaf-file-name="deploy.bat" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deploy.bat">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="32">
+              <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -85,8 +85,8 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+            <state relative-caret-position="400">
+              <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -440,12 +440,12 @@
       <workItem from="1585644342004" duration="2377000" />
       <workItem from="1585862848769" duration="593000" />
       <workItem from="1585936842553" duration="6685000" />
-      <workItem from="1586208334318" duration="2401000" />
+      <workItem from="1586208334318" duration="2584000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64660000" />
+    <option name="totallyTimeSpent" value="64843000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="0" width="1934" height="2137" extended-state="0" />
@@ -882,16 +882,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deploy.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="32">
+          <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+        <state relative-caret-position="400">
+          <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
           <folding />
         </state>
       </provider>
