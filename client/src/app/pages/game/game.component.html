@@ -1,0 +1,18 @@
+<main *ngIf="room$ | async as room">
+  <ng-container *ngIf="player$ | async; else noPlayer">
+
+  </ng-container>
+
+  <ng-template #noPlayer>
+    <app-player-creator
+      [room]="room"
+    ></app-player-creator>
+  </ng-template>
+
+
+  <ul>
+    <li *ngFor="let planet of planets$ | async">
+      <button (click)="pickPlanet(room, planet)">{{ planet.name }}</button>
+    </li>
+  </ul>
+</main>

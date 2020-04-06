@@ -1,0 +1,19 @@
+<app-splash></app-splash>
+<main>
+  <app-planet
+    *ngFor="let planet of (planets$ | async)"
+    [planet]="planet"
+  ></app-planet>
+
+  <app-ship
+    *ngFor="let player of (players$ | async)"
+    [player]="player"
+  ></app-ship>
+</main>
+
+<ng-template #error>
+  <main>
+    <h2>Something went wrong...</h2>
+    <p>Please reload...</p>
+  </main>
+</ng-template>

@@ -1,0 +1,35 @@
+{
+"images": ["assets/sprites/planets.png"],
+"frames": [
+
+    [2, 2, 48, 48], 
+    [2, 52, 48, 48], 
+    [52, 2, 48, 48], 
+    [52, 52, 48, 48], 
+    [102, 2, 48, 48], 
+    [102, 52, 48, 48], 
+    [152, 2, 48, 48], 
+    [202, 2, 48, 48], 
+    [152, 52, 48, 48], 
+    [202, 52, 48, 48], 
+    [2, 102, 24, 24]
+],
+"animations": {
+    
+        "Baren":[0], 
+        "Barren2":[1], 
+        "Desert":[2], 
+        "Desert2":[3], 
+        "Forest":[4], 
+        "Ice":[5], 
+        "Ice2":[6], 
+        "Lava":[7], 
+        "Ocean":[8], 
+        "Terran":[9], 
+        "spaceship":[10]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:c8faceb4394c8468786b7994a32d3aac:32819ca2f457ed090c5d809e0d3a6822:b39012af8c10e6f2542ba48f4ca1957d$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+]
+}

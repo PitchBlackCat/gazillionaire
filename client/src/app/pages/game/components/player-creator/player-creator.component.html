@@ -1,0 +1,5 @@
+<form [formGroup]="form" (submit)="join()">
+  <input type="text" pInputText formControlName="name" />
+  <button pButton label="Join"></button>
+  <p *ngIf="error$ | async as error">{{error}}</p>
+</form>

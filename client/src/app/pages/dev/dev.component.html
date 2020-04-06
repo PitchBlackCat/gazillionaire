@@ -1,0 +1,15 @@
+<h1>Game {{game$ | async}}</h1>
+<main class="flex column">
+  <iframe #TV></iframe>
+  <div class="flex">
+    <div>
+      <iframe [src]="controllerUrl$ | async"></iframe>
+    </div>
+    <div>
+      <iframe [src]="controllerUrl$ | async"></iframe>
+    </div>
+    <div>
+      <iframe [src]="controllerUrl$ | async"></iframe>
+    </div>
+  </div>
+</main>
