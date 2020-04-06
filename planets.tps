@@ -193,17 +193,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>sprites/Planets/Terran.png</filename>
-            <filename>sprites/Planets/Baren.png</filename>
-            <filename>sprites/Planets/Desert.png</filename>
-            <filename>sprites/Planets/Forest.png</filename>
-            <filename>sprites/Planets/Ice.png</filename>
-            <filename>sprites/Planets/Lava.png</filename>
-            <filename>sprites/Planets/Ocean.png</filename>
-            <filename>sprites/Planets/Desert2.png</filename>
-            <filename>sprites/Planets/Ice2.png</filename>
-            <filename>sprites/Planets/Barren2.png</filename>
-            <filename>sprites/spaceship.png</filename>
+            <filename>sprites/Planets</filename>
+            <filename>sprites/Ships</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
