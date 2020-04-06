@@ -6,7 +6,7 @@ export class Planet extends Schema {
     name: string;
 
     @type("string")
-    color: string;
+    sprite: string;
 
     @type("number")
     x: number;
@@ -14,9 +14,9 @@ export class Planet extends Schema {
     @type("number")
     y: number;
 
-    constructor(color:string, name:string, x: number, y: number) {
+    constructor(sprite:string, name:string, x: number, y: number) {
         super();
-        this.color = color;
+        this.sprite = sprite;
         this.name = name;
         this.x = x * canvasSize.width;
         this.y = y * canvasSize.height;

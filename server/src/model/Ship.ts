@@ -1,29 +1,24 @@
-import {Schema, type} from "@colyseus/schema"
+import {Schema, type, MapSchema} from "@colyseus/schema"
 import {HoldItem} from './HoldItem';
-import {Planet} from './Planet';
-
-class MapSchema {
-}
 
 export class Ship extends Schema {
-    @type("string") name: string = '';
+    @type("string") sprite: string = '';
 
-    @type("number") passenger_room_size: number;
-    @type("number") passengers: number;
+    @type("number") passenger_room_size: number = 0;
+    @type("number") passengers: number = 0;
 
-    @type("number") hold_size: number;
+    @type("number") hold_size: number = 0;
     @type({map: HoldItem}) hold_items = new MapSchema<HoldItem>();
 
-    @type("number") x: number;
-    @type("number") y: number;
+    @type("number") x: number = 0;
+    @type("number") y: number = 0;
 
-    @type("number") acceleration: number = 10;
-    @type("number") speed: number  = 0;
+    @type("number") acceleration: number = .5;
+    @type("number") max_speed: number = 10;
+    @type("number") speed: number = 0;
     @type("number") gas: number = 100;
 
     constructor() {
         super();
-        this.x = Math.random() * 640;
-        this.y = Math.random() * 480;
     }
 }
