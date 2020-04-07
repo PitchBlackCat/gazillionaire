@@ -13,8 +13,7 @@ export class PreloadjsService {
 
 
 export class Preloader {
-
-  private static queues: { [key: string]: createjs.LoadQueue } = {};
+  private static preloaders: { [key: string]: Preloader } = {};
 
   public readonly progress$: Observable<number>;
   public readonly error$: Observable<any>;
@@ -26,7 +25,6 @@ export class Preloader {
     this.queue.loadManifest(manifest);
 
     this.complete$ = fromEvent(this.queue, 'complete').pipe(
-      tap(() => Preloader.queues[key] = this.queue),
       map(event => this.queue.getItems(true)),
       take(1),
       shareReplay(1)
@@ -36,7 +34,6 @@ export class Preloader {
       map(() => (this.queue.progress * 100 | 0)),
       shareReplay(1),
       takeUntil(this.complete$)
-
     );
 
     this.error$ = fromEvent(this.queue, 'error').pipe(
@@ -46,13 +43,20 @@ export class Preloader {
     );
   }
 
+  static findOrCreate(key: string, manifest: any): Preloader {
+    if (!Preloader.preloaders[key]) {
+      Preloader.preloaders[key] = new Preloader(key, manifest);
+    }
+    return Preloader.preloaders[key];
+  }
+
   static get<T>(manifest: string, key: string): T {
-    return <T>Preloader.queues[manifest].getResult(key);
+    return <T>Preloader.preloaders[manifest].queue.getResult(key);
   }
 
   load(): Preloader {
-      this.queue.load();
-      return this;
+    this.queue.load();
+    return this;
   }
 
 }

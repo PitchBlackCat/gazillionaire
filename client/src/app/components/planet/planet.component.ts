@@ -10,9 +10,9 @@ import {Preloader} from '../../services/preloadjs.service';
   styleUrls: ['./planet.component.sass']
 })
 @Manifest({
-  key: 'planets',
+  key: 'main',
   data: [
-    {id: 'planets', src: '/assets/sprites/planets.json', type: 'spritesheet'}
+    {id: 'entities', src: '/assets/sprites/planets.json', type: 'spritesheet'}
   ]
 })
 export class PlanetComponent extends AbstractView implements OnInit {
@@ -30,7 +30,7 @@ export class PlanetComponent extends AbstractView implements OnInit {
   }
 
   init(): void {
-    const sheet = Preloader.get<createjs.SpriteSheet>('planets', 'planets');
+    const sheet = Preloader.get<createjs.SpriteSheet>('main', 'entities');
     this.sprite = new createjs.Sprite(sheet, this.planet.sprite);
     this.sprite.regX = this.sprite.getBounds().width / 2;
     this.sprite.regY= this.sprite.getBounds().height / 2;

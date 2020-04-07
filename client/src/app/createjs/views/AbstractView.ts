@@ -47,8 +47,8 @@ export abstract class AbstractView implements OnInit, OnDestroy {
 
   private preload(): Observable<AbstractView> {
     const manifest = this['manifest'];
-    return manifest ?
-      new Preloader(manifest.key, manifest.data).load().complete$.pipe(map(() => this))
+    return manifest
+      ? Preloader.findOrCreate(manifest.key, manifest.data).complete$.pipe(map(() => this))
       : of(this);
   }
 }

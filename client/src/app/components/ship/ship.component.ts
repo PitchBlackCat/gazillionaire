@@ -6,9 +6,9 @@ import {AbstractView} from '../../createjs/views/AbstractView';
 import {CanvasSize} from '../../services/createjs.service';
 
 @Manifest({
-  key: 'planets',
+  key: 'main',
   data: [
-    {id: 'planets', src: '/assets/sprites/planets.json', type: 'spritesheet'}
+    {id: 'entities', src: '/assets/sprites/planets.json', type: 'spritesheet'}
   ]
 })
 @Component({
@@ -32,7 +32,7 @@ export class ShipComponent extends AbstractView {
   }
 
   init(): void {
-    const sheet = Preloader.get<createjs.SpriteSheet>('planets', 'planets');
+    const sheet = Preloader.get<createjs.SpriteSheet>('main', 'entities');
     this.sprite = new createjs.Sprite(sheet, this.ship.sprite);
     this.sprite.regX = this.sprite.getBounds().width / 2;
     this.sprite.regY= this.sprite.getBounds().height / 2;

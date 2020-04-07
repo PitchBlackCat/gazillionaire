@@ -22,7 +22,7 @@ export class DevComponent extends Destroyable implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.tv.nativeElement.setAttribute('src', `http://${environment.client_url}/tv`);
+    this.tv.nativeElement.setAttribute('src', `${environment.client_url}/tv`);
     const iframe = this.tv.nativeElement as HTMLIFrameElement;
     this.game$ = interval(1000).pipe(
       map(() => iframe.contentWindow.location.href.split('?room=')[1] || ''),
@@ -31,7 +31,7 @@ export class DevComponent extends Destroyable implements AfterViewInit {
     );
 
     this.controllerUrl$ = this.game$.pipe(
-      map(g => `http://${environment.client_url}/game/${g}`),
+      map(g => `${environment.client_url}/game/${g}`),
       map(u => this.sanitizer.bypassSecurityTrustResourceUrl(u)),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
