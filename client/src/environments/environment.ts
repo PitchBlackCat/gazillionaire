@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   tv_width: 800,
   tv_height: 600,
-  server_url: '192.168.2.210:2567',
-  client_url: '192.168.2.210:4200',
+  server_url: 'ws://192.168.2.210:2567',
+  client_url: 'http://192.168.2.210:4200',
 };
 
 /*

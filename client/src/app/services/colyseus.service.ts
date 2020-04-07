@@ -34,7 +34,7 @@ export class ColyseusService {
 
 
   constructor() {
-    this.client = new Client(`ws://${environment.server_url}`);
+    this.client = new Client(environment.server_url);
   }
 
   createRoom(name: string): void {

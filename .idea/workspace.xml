@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+            <state relative-caret-position="96">
+              <caret line="6" column="42" lean-forward="false" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -63,24 +63,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="environment.prod.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="environment.prod.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/environments/environment.prod.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="64">
+              <caret line="4" column="57" lean-forward="true" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="createjs.service.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/app/services/createjs.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#49#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -101,10 +89,20 @@
         <entry file="file://$PROJECT_DIR$/client/src/app/services/colyseus.service.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="576">
-              <caret line="36" column="57" lean-forward="false" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="57" />
+              <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Client.d.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/node_modules/colyseus.js/lib/Client.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/environments/environment.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="112">
-              <caret line="9" column="35" lean-forward="false" selection-start-line="8" selection-start-column="2" selection-end-line="9" selection-end-column="35" />
+              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -173,7 +171,6 @@
         <option value="$PROJECT_DIR$/client/src/app/components/planet/planet.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/components/ship/ship.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/components/splash/splash.component.html" />
-        <option value="$PROJECT_DIR$/client/src/environments/environment.ts" />
         <option value="$PROJECT_DIR$/deploy.bat" />
         <option value="$PROJECT_DIR$/server/package.json" />
         <option value="$PROJECT_DIR$/server.bat" />
@@ -199,11 +196,12 @@
         <option value="$PROJECT_DIR$/server/src/GameRoom.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/game/components/travel/travel.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/game/components/travel/travel.component.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/services/colyseus.service.ts" />
-        <option value="$PROJECT_DIR$/client/src/environments/environment.prod.ts" />
         <option value="$PROJECT_DIR$/server/src/index.ts" />
         <option value="$PROJECT_DIR$/client/package.json" />
         <option value="$PROJECT_DIR$/client/server.js" />
+        <option value="$PROJECT_DIR$/client/src/app/services/colyseus.service.ts" />
+        <option value="$PROJECT_DIR$/client/src/environments/environment.ts" />
+        <option value="$PROJECT_DIR$/client/src/environments/environment.prod.ts" />
       </list>
     </option>
   </component>
@@ -449,12 +447,12 @@
       <workItem from="1585644342004" duration="2377000" />
       <workItem from="1585862848769" duration="593000" />
       <workItem from="1585936842553" duration="6685000" />
-      <workItem from="1586208334318" duration="14275000" />
+      <workItem from="1586208334318" duration="15306000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76534000" />
+    <option name="totallyTimeSpent" value="77565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="0" width="1934" height="2137" extended-state="0" />
@@ -538,13 +536,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/dev/dev.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/styles.sass">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -894,32 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/services/colyseus.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="36" column="57" lean-forward="false" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/environments/environment.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="9" column="35" lean-forward="false" selection-start-line="8" selection-start-column="2" selection-end-line="9" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/environments/environment.prod.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/node_modules/colyseus/lib/Server.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="496">
@@ -946,6 +911,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="42" lean-forward="false" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -954,10 +927,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/package.json">
+    <entry file="file://$PROJECT_DIR$/client/node_modules/colyseus.js/lib/Client.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+        <state relative-caret-position="160">
+          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/services/colyseus.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/environments/environment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/environments/environment.prod.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="57" lean-forward="true" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
           <folding />
         </state>
       </provider>
