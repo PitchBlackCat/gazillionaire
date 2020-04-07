@@ -3,9 +3,10 @@ import {Client} from 'colyseus.js';
 import {Observable} from 'rxjs/index';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {ObservableRoom} from './ObservableRoom';
-import {map, pluck, shareReplay, switchMap, take} from 'rxjs/internal/operators';
+import {filter, map, pluck, shareReplay, switchMap, take, tap} from 'rxjs/internal/operators';
 import {pipeFromArray} from 'rxjs/internal/util/pipe';
 import {environment} from '../../environments/environment';
+import {Logger} from '../util/Logger';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,23 @@ export class ColyseusService {
   private client: Client;
   private _room$: EventEmitter<ObservableRoom> = new EventEmitter<ObservableRoom>();
   readonly room$: Observable<ObservableRoom> = this._room$.pipe(shareReplay(1));
-  readonly state$: Observable<ObservableRoom> = this.room$.pipe(switchMap((r: ObservableRoom) => r.onStateChange$));
-  readonly message$: Observable<ObservableRoom> = this.room$.pipe(switchMap((r: ObservableRoom) => r.onMessage$));
+
+  readonly state$: Observable<any> = this.room$.pipe(
+    switchMap((r: ObservableRoom) => r.onStateChange$),
+    shareReplay(1)
+  );
+
+  readonly message$: Observable<any> = this.room$.pipe(
+    switchMap((r: ObservableRoom) => r.onMessage$),
+    shareReplay(1)
+  );
+
+  readonly whoami$: Observable<any> = this.message$.pipe(
+    filter(m => m.type === 'whoami'),
+    map(m => m.data),
+    shareReplay(1)
+  );
+
 
   constructor() {
     this.client = new Client(`ws://${environment.server_url}`);
@@ -41,15 +57,14 @@ export class ColyseusService {
   }
 
   send(data: any): void {
-    this.room$.pipe(take(1)).subscribe((r: ObservableRoom) => r.send(data));
+    this.room$.pipe(take(1)).subscribe((r: ObservableRoom) => {
+      Logger.log(Logger.ENGINE, `sending command ${data.command}`);
+      r.send(data)
+    });
   }
 
   sendCommand(command: string, data: any): void {
+    Logger.log(Logger.ENGINE, `Queued command ${command}`);
     this.send({command, data});
   }
 }
-
-export const select = (key: string) => pipeFromArray([
-  pluck(key),
-  map(p => Object.keys(p).map(k => p[k]))
-]);

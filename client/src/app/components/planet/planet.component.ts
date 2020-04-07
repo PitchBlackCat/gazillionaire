@@ -31,7 +31,7 @@ export class PlanetComponent extends AbstractView implements OnInit {
 
   init(): void {
     const sheet = Preloader.get<createjs.SpriteSheet>('planets', 'planets');
-    this.sprite = new createjs.Sprite(sheet, this.planet.color);
+    this.sprite = new createjs.Sprite(sheet, this.planet.sprite);
     this.sprite.regX = this.sprite.getBounds().width / 2;
     this.sprite.regY= this.sprite.getBounds().height / 2;
 

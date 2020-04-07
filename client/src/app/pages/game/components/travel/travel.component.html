@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let planet of (planets$ | async)">
+    <button (click)="pickPlanet(room, planet)">{{ planet.name }}</button>
+  </li>
+</ul>

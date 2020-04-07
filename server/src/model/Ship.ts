@@ -2,7 +2,7 @@ import {Schema, type, MapSchema} from "@colyseus/schema"
 import {HoldItem} from './HoldItem';
 
 export class Ship extends Schema {
-    @type("string") sprite: string = '';
+    @type("string") sprite: string = 'Blue-1';
 
     @type("number") passenger_room_size: number = 0;
     @type("number") passengers: number = 0;

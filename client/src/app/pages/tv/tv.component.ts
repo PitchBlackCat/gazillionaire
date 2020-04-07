@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ColyseusService, select} from '../../services/colyseus.service';
+import {ColyseusService} from '../../services/colyseus.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {switchMap, take} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs/index';
 import {ObservableRoom} from '../../services/ObservableRoom';
 import {environment} from '../../../environments/environment';
+import {pluckMapAsArray} from '../../util/selectors';
 
 @Component({
   selector: 'app-tv',
@@ -23,8 +24,8 @@ export class TvComponent implements OnInit {
   ) {
     this.room$ = this.colyseus.room$;
     this.state$ = this.room$.pipe(switchMap(r => r.onStateChange$));
-    this.players$ = this.state$.pipe(select('players'));
-    this.planets$ = this.state$.pipe(select('planets'));
+    this.players$ = this.state$.pipe(pluckMapAsArray('players'));
+    this.planets$ = this.state$.pipe(pluckMapAsArray('planets'));
   }
 
   public get width() {

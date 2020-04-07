@@ -24,16 +24,16 @@ export class ShipComponent extends AbstractView {
     super(stageService);
   }
 
-  @Input() player;
+  @Input() ship;
 
   onTick(): void {
-    this.sprite.x = this.player.x;
-    this.sprite.y = this.player.y;
+    this.sprite.x = this.ship.x;
+    this.sprite.y = this.ship.y;
   }
 
   init(): void {
     const sheet = Preloader.get<createjs.SpriteSheet>('planets', 'planets');
-    this.sprite = new createjs.Sprite(sheet, 'spaceship');
+    this.sprite = new createjs.Sprite(sheet, this.ship.sprite);
     this.sprite.regX = this.sprite.getBounds().width / 2;
     this.sprite.regY= this.sprite.getBounds().height / 2;
 

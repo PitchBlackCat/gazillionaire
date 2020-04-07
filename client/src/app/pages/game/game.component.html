@@ -1,18 +1,13 @@
 <main *ngIf="room$ | async as room">
-  <ng-container *ngIf="player$ | async; else noPlayer">
-
+  <ng-container *ngIf="player$ | async as player; else noPlayer">
+    <ng-container [ngSwitch]="player.screen">
+      <ng-container *ngSwitchDefault>
+        <app-travel></app-travel>
+      </ng-container>
+    </ng-container>
   </ng-container>
 
   <ng-template #noPlayer>
-    <app-player-creator
-      [room]="room"
-    ></app-player-creator>
+    <app-player-creator></app-player-creator>
   </ng-template>
-
-
-  <ul>
-    <li *ngFor="let planet of planets$ | async">
-      <button (click)="pickPlanet(room, planet)">{{ planet.name }}</button>
-    </li>
-  </ul>
 </main>

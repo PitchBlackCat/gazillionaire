@@ -28,10 +28,14 @@ export class GameRoom extends Room<GameState> {
 
     onJoin(client: Client, options: any) {
         console.log(`${client.sessionId} joined room ${this.roomId} (${this.clients.length}/${this.options.maxClients})`);
-
         if (this.options.maxClients < this.clients.length) {
             client.close();
         }
+    }
+
+    send(client: Client, message: any): void {
+        console.log(`Sending ${JSON.stringify(message)} to ${client.sessionId}`);
+        super.send(client, message);
     }
 
     onMessage(client: Client, message: any) {
@@ -39,10 +43,10 @@ export class GameRoom extends Room<GameState> {
             console.log(`${client.id} send command ${message.command}`);
             switch (message.command) {
                 case 'join':
-                    this.onJoinAsPlayer(client, message);
+                    this.onJoinAsPlayer(client, message.data);
                     break;
                 case 'travel':
-                    this.onTravel(client, message);
+                    this.onTravel(client, message.data);
                     break;
                 default:
                     this.send(client, 'what?');
@@ -50,8 +54,14 @@ export class GameRoom extends Room<GameState> {
         }
     }
 
-    onJoinAsPlayer(client: Client, message: any) {
-        this.state.players[client.sessionId] = new Player();
+    onJoinAsPlayer(client: Client, data: any) {
+        const p = new Player();
+        p.name = data.name;
+        p.ship.sprite = data.ship;
+        p.planet = data.planet;
+
+        this.send(client, {type: 'whoami', data: client.sessionId});
+        this.state.players[client.sessionId] = p;
     }
 
     async onLeave(client: Client, consented: boolean) {
@@ -98,8 +108,8 @@ export class GameRoom extends Room<GameState> {
         return this.state.planets[name] || null;
     }
 
-    private onTravel(client: Client, message: any) {
-        const planet = this.getPlanet(message.planet);
+    private onTravel(client: Client, data: any) {
+        const planet = this.getPlanet(data.planet);
         const player = this.getPlayer(client);
 
         const speed = 100;
@@ -110,17 +120,17 @@ export class GameRoom extends Room<GameState> {
         gsap.killTweensOf(player);
 
         const tl = gsap.timeline();
-        tl.to(player, {
+        tl.to(player.ship, {
             x: planet.x,
             y: planet.y,
             duration: dist / speed,
             ease: "sine.inOut"
-        }).to(player, {
+        }).to(player.ship, {
             x: planet.x + 30,
             y: planet.y + offset,
             duration: circSpeed,
             ease: "power3.inOut"
-        }).to(player, {
+        }).to(player.ship, {
             x: planet.x - 30,
             y: planet.y - offset,
             duration: circSpeed,

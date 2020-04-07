@@ -3,8 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObservableRoom} from '../../../../services/ObservableRoom';
 import {ColyseusService} from '../../../../services/colyseus.service';
 import {Destroyable} from '../../../../util/Destroyable';
-import {filter} from 'rxjs/internal/operators';
-import {Observable} from 'rxjs/index';
+import {filter, map, takeUntil} from 'rxjs/internal/operators';
+import {Observable, of} from 'rxjs/index';
+import {pluckMapAsArray} from '../../../../util/selectors';
 
 @Component({
   selector: 'app-player-creator',
@@ -13,27 +14,59 @@ import {Observable} from 'rxjs/index';
 })
 export class PlayerCreatorComponent extends Destroyable implements OnInit {
   public form: FormGroup;
-  @Input() public room: ObservableRoom;
+  public visible = true;
   @Input() public room: ObservableRoom;
   public error$: Observable<string>;
+  public planets$: Observable<{ label; value; }[]>;
+  public ships$: Observable<{ label; value; }[]>;
+  public state$: Observable<any>;
 
   constructor(private fb: FormBuilder, readonly colyseus: ColyseusService) {
     super();
+    this.state$ = this.colyseus.message$;
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      ship: ['', [Validators.required]],
+      planet: ['', [Validators.required]]
     });
 
-    this.error$ = this.colyseus.message$.pipe(
-      filter(m => m.type === 'error')
+    this.planets$ = this.colyseus.state$.pipe(
+      pluckMapAsArray('planets'),
+      map((ps: any[]) => ps.map(p => ({label: p.name, value: p.name}))),
+      map((ps: any[]) => [{label: 'Select a planet', value: ''}, ...ps]),
+      takeUntil(this.destroy$)
     );
+
+    this.ships$ = of(['Blue-1', 'Red-4', 'Yellow-3']).pipe(
+      map((ps: any[]) => ps.map(p => ({label: p, value: p}))),
+      map((ps: any[]) => [{label: 'Select a ship', value: ''}, ...ps]),
+      takeUntil(this.destroy$)
+    );
+
+    this.error$ = this.colyseus.message$.pipe(
+      filter(m => m.type === 'error'),
+      takeUntil(this.destroy$)
+    );
+
+    const loadedPlayer = sessionStorage.getItem('name');
+    if (loadedPlayer) {
+      this.form.patchValue({name: loadedPlayer});
+    }
   }
 
   join() {
-    if (this.form.invalid) return false;
-    this.colyseus.sendCommand('join', {name: this.form.getRawValue().name});
-  }
+    this.form.updateValueAndValidity();
 
+    if (this.form.invalid) {
+      console.warn('Form has errors', this.form.errors);
+      return false;
+    }
+
+    this.visible = false;
+    sessionStorage.setItem('name', this.form.getRawValue().name);
+    this.colyseus.sendCommand('join', this.form.getRawValue());
+  }
 }

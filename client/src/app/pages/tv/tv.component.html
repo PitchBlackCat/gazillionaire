@@ -7,7 +7,7 @@
 
   <app-ship
     *ngFor="let player of (players$ | async)"
-    [player]="player"
+    [ship]="player.ship"
   ></app-ship>
 </main>
 
