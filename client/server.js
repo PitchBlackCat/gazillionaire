@@ -3,10 +3,10 @@ const path = require('path');
 const app = express();
 
 // Serve static files....
-app.use(express.static(__dirname + '/dist/assets'));
+app.use(express.static(__dirname + '/dist/client'));
 
 // Send all requests to index.html
-app.get('/*', function(req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname + '/dist/client/index.html'));
 });
 
