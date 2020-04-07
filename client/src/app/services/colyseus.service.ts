@@ -3,8 +3,7 @@ import {Client} from 'colyseus.js';
 import {Observable} from 'rxjs/index';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {ObservableRoom} from './ObservableRoom';
-import {filter, map, pluck, shareReplay, switchMap, take, tap} from 'rxjs/internal/operators';
-import {pipeFromArray} from 'rxjs/internal/util/pipe';
+import {filter, map, shareReplay, switchMap, take} from 'rxjs/internal/operators';
 import {environment} from '../../environments/environment';
 import {Logger} from '../util/Logger';
 
