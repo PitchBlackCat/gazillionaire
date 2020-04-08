@@ -27,8 +27,8 @@ export class ShipComponent extends AbstractView {
   @Input() ship;
 
   onTick(): void {
-    this.sprite.x = this.ship.x;
-    this.sprite.y = this.ship.y;
+    this.sprite.x = this.ship.pos.x;
+    this.sprite.y = this.ship.pos.y;
   }
 
   init(): void {

@@ -29,6 +29,7 @@
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "gsap": "^3.2.6",
+    "rxjs": "^6.5.5",
     "ts-node": "^8.1.0",
     "typescript": "^3.4.5"
   }

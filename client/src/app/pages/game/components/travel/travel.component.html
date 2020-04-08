@@ -1,5 +1,5 @@
-<ul>
-  <li *ngFor="let planet of (planets$ | async)">
-    <button (click)="pickPlanet(planet)">{{ planet.name }}</button>
-  </li>
-</ul>
+
+    <button *ngIf="!player.planet" pButton (click)="stop()" label="Stop"></button>
+    <ng-container *ngFor="let planet of (planets$ | async)">
+      <button pButton (click)="pickPlanet(planet)" [label]="planet.name"></button>
+    </ng-container>

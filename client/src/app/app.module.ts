@@ -8,7 +8,7 @@ import {SplashModule} from './components/splash/splash.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

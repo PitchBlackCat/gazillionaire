@@ -25,8 +25,8 @@ export class PlanetComponent extends AbstractView implements OnInit {
   @Input() planet;
 
   onTick(): void {
-    this.sprite.x = this.planet.x;
-    this.sprite.y = this.planet.y;
+    this.sprite.x = this.planet.pos.x;
+    this.sprite.y = this.planet.pos.y;
   }
 
   init(): void {

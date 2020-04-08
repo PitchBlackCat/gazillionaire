@@ -5,13 +5,18 @@ import {GameRoutingModule} from './game-routing.module';
 import {GameComponent} from './game.component';
 import {RouterModule} from '@angular/router';
 import {PlayerCreatorComponent} from './components/player-creator/player-creator.component';
-import {ButtonModule, DialogModule, DropdownModule, DynamicDialogModule, InputTextModule} from 'primeng';
+import {
+  ButtonModule, CardModule, DialogModule, DropdownModule, DynamicDialogModule, InputTextModule,
+  ProgressBarModule, TabViewModule
+} from 'primeng';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TravelComponent } from './components/travel/travel.component';
+import { AtPlanetComponent } from './components/at-planet/at-planet.component';
+import {SharedModule} from '../../modules/shared/shared.module';
 
 
 @NgModule({
-  declarations: [GameComponent, PlayerCreatorComponent, TravelComponent],
+  declarations: [GameComponent, PlayerCreatorComponent, TravelComponent, AtPlanetComponent],
   imports: [
     CommonModule,
     GameRoutingModule,
@@ -21,7 +26,11 @@ import { TravelComponent } from './components/travel/travel.component';
     ButtonModule,
     DialogModule,
     DynamicDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CardModule,
+    ProgressBarModule,
+    TabViewModule,
+    SharedModule
   ]
 })
 export class GameModule {

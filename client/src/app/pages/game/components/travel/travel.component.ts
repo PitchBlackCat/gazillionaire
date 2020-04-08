@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ColyseusService} from '../../../../services/colyseus.service';
 import {pluckMapAsArray} from '../../../../util/selectors';
 import {Observable} from 'rxjs/index';
@@ -12,6 +12,7 @@ import {ObservableRoom} from '../../../../services/ObservableRoom';
 })
 export class TravelComponent extends Destroyable implements OnInit {
   planets$: Observable<any>;
+  @Input() player: any;
 
   constructor(readonly colyseus: ColyseusService) {
     super();
@@ -23,5 +24,9 @@ export class TravelComponent extends Destroyable implements OnInit {
 
   pickPlanet(planet: any) {
     this.colyseus.sendCommand('travel', {planet: planet.name})
+  }
+
+  stop() {
+    this.colyseus.sendCommand('travel', {planet: null});
   }
 }

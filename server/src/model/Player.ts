@@ -10,13 +10,16 @@ export type Screen =
 export class Player extends Schema {
     @type("string") name: string = '';
     @type("string") screen: Screen = '';
-
     @type("string") planet: string = '';
-    @type(Ship) ship: Ship = new Ship();
 
+    @type(Ship) ship: Ship = new Ship();
     @type("boolean") connected: boolean = true;
 
     constructor() {
         super();
+    }
+
+    destroy() {
+        this.ship.destroy();
     }
 }

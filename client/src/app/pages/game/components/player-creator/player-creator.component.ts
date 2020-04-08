@@ -51,9 +51,9 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
       takeUntil(this.destroy$)
     );
 
-    const loadedPlayer = sessionStorage.getItem('name');
+    const loadedPlayer = JSON.parse(sessionStorage.getItem('player'));
     if (loadedPlayer) {
-      this.form.patchValue({name: loadedPlayer});
+      this.form.patchValue(loadedPlayer);
     }
   }
 
@@ -66,7 +66,7 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
     }
 
     this.visible = false;
-    sessionStorage.setItem('name', this.form.getRawValue().name);
+    sessionStorage.setItem('player', JSON.stringify(this.form.getRawValue()));
     this.colyseus.sendCommand('join', this.form.getRawValue());
   }
 }

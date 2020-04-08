@@ -1,9 +1,9 @@
-import {Client, Room} from "colyseus";
+import {Client, Delayed, Room} from "colyseus";
 import {MapSchema, Schema, type} from "@colyseus/schema"
 import {createPlanets, Planet} from './model/Planet';
 import {Player} from './model/Player';
-import {gsap} from 'gsap';
-import {distance} from './utils';
+import {Ship} from './model/Ship';
+import {canvasSize} from './utils';
 
 
 // Our custom game state, an ArraySchema of type Player only at the moment
@@ -17,6 +17,7 @@ class GameState extends Schema {
 
 export class GameRoom extends Room<GameState> {
 
+    private delayedInterval: any;
     private options: any;
 
     onCreate(options: any) {
@@ -24,6 +25,17 @@ export class GameRoom extends Room<GameState> {
         this.setState(new GameState());
 
         this.createPlanets(8);
+
+        // Set an interval and store a reference to it
+        // so that we may clear it later
+        this.delayedInterval = this.clock.setInterval(() => {
+            Object.keys(this.state.players)
+                .map(k => this.state.players[k])
+                .map((p: Player) => p.ship)
+                .forEach((s: Ship) => s.update());
+        }, 1000 / 30);
+
+        this.clock.start();
     }
 
     onJoin(client: Client, options: any) {
@@ -55,13 +67,23 @@ export class GameRoom extends Room<GameState> {
     }
 
     onJoinAsPlayer(client: Client, data: any) {
-        const p = new Player();
-        p.name = data.name;
-        p.ship.sprite = data.ship;
-        p.planet = data.planet;
+        const player = new Player();
+        player.name = data.name;
+        player.ship.sprite = data.ship;
+        player.planet = data.planet;
 
         this.send(client, {type: 'whoami', data: client.sessionId});
-        this.state.players[client.sessionId] = p;
+        this.state.players[client.sessionId] = player;
+
+        player.ship.planet$.subscribe(p => {
+            if (p) {
+                player.planet = p.name;
+                player.screen = 'at_planet';
+            } else {
+                player.planet = '';
+                player.screen = '';
+            }
+        });
     }
 
     async onLeave(client: Client, consented: boolean) {
@@ -69,32 +91,24 @@ export class GameRoom extends Room<GameState> {
         const player = this.getPlayer(client);
         if (!player) return;
 
-        player.connected = false;
-
-        try {
-            // allow disconnected client to reconnect into this room until 20 seconds
-            await this.allowReconnection(client, 20);
-
-            // client returned! let's re-activate it.
-            player.connected = true;
-
-        } catch (e) {
-            console.log(`${client.sessionId} left room ${this.roomId}`);
-            // 20 seconds expired. let's remove the client.
-            delete this.state.players[client.sessionId];
-        }
+        player.destroy();
+        delete this.state.players[client.sessionId];
+        console.log(`${client.sessionId} left room ${this.roomId}`);
     }
 
     onDispose() {
+        this.delayedInterval.clear();
     }
 
     private createPlanets(num: number) {
         createPlanets().slice(0, num).forEach(p => {
             this.state.planets[p.name] = p;
+            p.pos.x = (canvasSize.width - 100) * Math.random() + 50;
+            p.pos.y = (canvasSize.height - 100) * Math.random() + 50;
         });
     }
 
-    private getPlayer(client: Client) {
+    private getPlayer(client: Client): Player {
         return this.state.players[client.id] || null;
     }
 
@@ -109,34 +123,8 @@ export class GameRoom extends Room<GameState> {
     }
 
     private onTravel(client: Client, data: any) {
-        const planet = this.getPlanet(data.planet);
         const player = this.getPlayer(client);
-
-        const speed = 100;
-        const dist = distance(player, planet);
-        const circSpeed = 1.5 + Math.random();
-        const offset = -10 + (Math.random() * 20);
-
-        gsap.killTweensOf(player);
-
-        const tl = gsap.timeline();
-        tl.to(player.ship, {
-            x: planet.x,
-            y: planet.y,
-            duration: dist / speed,
-            ease: "sine.inOut"
-        }).to(player.ship, {
-            x: planet.x + 30,
-            y: planet.y + offset,
-            duration: circSpeed,
-            ease: "power3.inOut"
-        }).to(player.ship, {
-            x: planet.x - 30,
-            y: planet.y - offset,
-            duration: circSpeed,
-            ease: "power3.inOut",
-            repeat: -1,
-            yoyo: true
-        })
+        const planet = this.getPlanet(data.planet);
+        player.ship.setTarget(planet);
     }
 }

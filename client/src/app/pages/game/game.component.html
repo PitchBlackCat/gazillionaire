@@ -1,13 +1,28 @@
 <main *ngIf="room$ | async as room">
-  <ng-container *ngIf="player$ | async as player; else noPlayer">
-    <ng-container [ngSwitch]="player.screen">
-      <ng-container *ngSwitchDefault>
-        <app-travel></app-travel>
+  <div *ngIf="player$ | async as player; else noPlayer" class="flex column">
+    <p-progressBar [value]="(player.ship.gas / player.ship.max_gas * 100) | round"></p-progressBar>
+    <div [ngSwitch]="player.screen" class="screen">
+
+      <ng-container *ngSwitchCase="'at_planet'">
+        <app-at-planet [player]="player"></app-at-planet>
       </ng-container>
-    </ng-container>
-  </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <div class="center">
+          <p-card [style]="{width: '220px'}" styleClass="ui-card-shadow">
+            <app-travel [player]="player"></app-travel>
+          </p-card>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
 
   <ng-template #noPlayer>
-    <app-player-creator></app-player-creator>
+    <div class="center">
+      <p-card [style]="{width: '220px'}" styleClass="ui-card-shadow">
+        <app-player-creator></app-player-creator>
+      </p-card>
+    </div>
   </ng-template>
 </main>

@@ -1,23 +1,21 @@
-<form [formGroup]="form" (submit)="join()">
-  <p *ngIf="error$ | async as error">{{error}}</p>
+<form [formGroup]="form" (submit)="join()" class="center">
+  <p-card [style]="{width: '220px'}" styleClass="ui-card-shadow">
+    <p *ngIf="error$ | async as error">{{error}}</p>
 
-  <label>Name:
-    <input type="text" pInputText formControlName="name"/>
-  </label>
+    <label>Name:
+      <input type="text" pInputText formControlName="name"/>
+    </label>
 
-  <label>Ship:
-    <p-dropdown [options]="ships$ | async" formControlName="ship"></p-dropdown>
-  </label>
+    <label>Ship:
+      <p-dropdown [options]="ships$ | async" formControlName="ship"></p-dropdown>
+    </label>
 
-  <label>Planet:
-    <p-dropdown [options]="planets$ | async" formControlName="planet"></p-dropdown>
-  </label>
+    <label>Planet:
+      <p-dropdown [options]="planets$ | async" formControlName="planet"></p-dropdown>
+    </label>
 
-  <p-footer>
-    <button type="submit" pButton label="Join"></button>
-  </p-footer>
-
-  <pre>
-      {{state$ | async | json}}
-    </pre>
+    <p-footer>
+      <button type="submit" pButton label="Join"></button>
+    </p-footer>
+  </p-card>
 </form>
