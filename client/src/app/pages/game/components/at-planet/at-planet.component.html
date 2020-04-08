@@ -1,11 +1,4 @@
 <div *ngIf="planet$ | async as planet">
-  <p-tabView>
-    <p-tabPanel header="Planet">
-      You are at {{ planet.name }}
-    </p-tabPanel>
-    <p-tabPanel header="Travel">
-      <app-travel [player]="player"></app-travel>
-    </p-tabPanel>
-  </p-tabView>
+  You are at {{ planet.name }}
 </div>
 

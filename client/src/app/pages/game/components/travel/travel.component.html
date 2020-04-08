@@ -1,5 +1,7 @@
 
-    <button *ngIf="!player.planet" pButton (click)="stop()" label="Stop"></button>
+    <button pButton (click)="stop()" label="Stop"
+            [disabled]="!!player.planet || player.ship.speed === 0"
+    ></button>
     <ng-container *ngFor="let planet of (planets$ | async)">
       <button pButton (click)="pickPlanet(planet)" [label]="planet.name"></button>
     </ng-container>
