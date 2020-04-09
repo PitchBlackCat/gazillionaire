@@ -6,6 +6,7 @@ import {GameComponent} from './game.component';
 import {RouterModule} from '@angular/router';
 import {PlayerCreatorComponent} from './components/player-creator/player-creator.component';
 import {
+  AccordionModule,
   ButtonModule, CardModule, DialogModule, DropdownModule, DynamicDialogModule, InputTextModule,
   ProgressBarModule, TabViewModule
 } from 'primeng';
@@ -30,7 +31,8 @@ import {SharedModule} from '../../modules/shared/shared.module';
     CardModule,
     ProgressBarModule,
     TabViewModule,
-    SharedModule
+    SharedModule,
+    AccordionModule
   ]
 })
 export class GameModule {

@@ -1,25 +1,29 @@
 <main *ngIf="room$ | async as room">
   <div *ngIf="player$ | async as player; else noPlayer" class="flex column">
-    <p-progressBar [value]="(player.ship.gas / player.ship.max_gas * 100) | round"></p-progressBar>
+    <div appRow [grow]="true" class="gutter pad top-bar">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="pi pi-dollar"></i></span>
+        <span class="grow ui-inputtext ui-corner-all ui-state-default ui-widget">{{player.money}}</span>
+      </div>
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="pi pi-filter"></i></span>
+        <p-progressBar class="grow fuel"
+                       [value]="(player.ship.gas / player.ship.max_gas * 100) | round"></p-progressBar>
+      </div>
+    </div>
 
-    <p-tabView>
-
-      <p-tabPanel header="Travel">
-        <app-travel [player]="player"></app-travel>
-      </p-tabPanel>
-
-      <p-tabPanel header="Planet" [disabled]="!player.planet">
+    <div class="screen">
+      <ng-container *ngIf="player.planet; else noPlanet">
         <app-at-planet [player]="player"></app-at-planet>
-      </p-tabPanel>
+      </ng-container>
 
-    </p-tabView>
+      <ng-template #noPlanet>
+        <app-travel [player]="player"></app-travel>
+      </ng-template>
+    </div>
   </div>
 
   <ng-template #noPlayer>
-    <div class="center">
-      <p-card [style]="{width: '220px'}" styleClass="ui-card-shadow">
-        <app-player-creator></app-player-creator>
-      </p-card>
-    </div>
+    <app-player-creator></app-player-creator>
   </ng-template>
 </main>

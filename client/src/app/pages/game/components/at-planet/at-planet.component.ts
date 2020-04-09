@@ -27,4 +27,8 @@ export class AtPlanetComponent extends Destroyable implements OnInit {
       takeUntil(this.destroy$)
     );
   }
+
+  leave(): void {
+    this.colyseus.sendCommand('travel', {plane: null});
+  }
 }

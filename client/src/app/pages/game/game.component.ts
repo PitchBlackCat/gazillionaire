@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ContentChild, OnInit, ViewChild} from '@angular/core';
 import {ColyseusService} from '../../services/colyseus.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ObservableRoom} from '../../services/ObservableRoom';
 import {combineLatest, Observable} from 'rxjs/index';
-import {map, pluck, shareReplay, takeUntil} from 'rxjs/internal/operators';
+import {filter, map, pluck, shareReplay, takeUntil} from 'rxjs/internal/operators';
 import {pluckMapAsArray} from '../../util/selectors';
 import {Destroyable} from '../../util/Destroyable';
+import {TabPanel, TabView} from 'primeng';
 
 @Component({
   selector: 'app-game',
@@ -32,9 +33,5 @@ export class GameComponent extends Destroyable implements OnInit {
     );
 
     this.colyseus.joinRoom(this.activatedRoute.snapshot.paramMap.get('room'));
-  }
-
-  pickPlanet(room: ObservableRoom, planet: any) {
-    room.send({command: 'travel', planet: planet.name})
   }
 }

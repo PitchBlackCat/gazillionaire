@@ -1,4 +1,49 @@
-<div *ngIf="planet$ | async as planet">
-  You are at {{ planet.name }}
+<div *ngIf="planet$ | async as planet" appColumn>
+  <h1>{{planet.name}}</h1>
+
+  <p-accordion [multiple]="true">
+
+    <p-accordionTab header="Ship">
+      <div appColumn [gutter]="true">
+        <div appRow [grow]="true" [gutter]="true">
+          <button class="ui-button-secondary" [disabled]="true" pButton label="Passengers (0/10)"></button>
+          <button class="ui-button-secondary" [disabled]="true" pButton label="Inventory (0/50)"></button>
+        </div>
+        <div appColumn>
+          <button class="ui-button-secondary" [disabled]="true" pButton label="Pay Wages ($1000)"></button>
+        </div>
+      </div>
+    </p-accordionTab>
+
+    <p-accordionTab header="Harbor">
+      <div appColumn [gutter]="true">
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Buy Fuel"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Pick up passengers (8)"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Pay Taxes ($108)"></button>
+      </div>
+    </p-accordionTab>
+
+    <p-accordionTab header="Bank">
+      <div appColumn [gutter]="true">
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Stock Market"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Bank"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Loan"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Mortgage"></button>
+      </div>
+    </p-accordionTab>
+
+    <p-accordionTab header="Marketplace">
+      <div appColumn [gutter]="true">
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Trade"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Advertise"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Buy Insurance"></button>
+        <button class="ui-button-secondary" [disabled]="true" pButton label="Explore"></button>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <hr>
+
+  <button pButton label="Leave" class="ui-button-danger" (click)="leave()"></button>
 </div>
 

@@ -52,7 +52,7 @@ export class GameRoom extends Room<GameState> {
 
     onMessage(client: Client, message: any) {
         if (message.command) {
-            console.log(`${client.id} send command ${message.command}`);
+            console.log(`${client.id} send ${JSON.stringify(message)}`);
             switch (message.command) {
                 case 'join':
                     this.onJoinAsPlayer(client, message.data);
@@ -70,7 +70,6 @@ export class GameRoom extends Room<GameState> {
         const player = new Player();
         player.name = data.name;
         player.ship.sprite = data.ship;
-        player.planet = data.planet;
 
         this.send(client, {type: 'whoami', data: client.sessionId});
         this.state.players[client.sessionId] = player;

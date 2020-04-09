@@ -1,2 +1,27 @@
+main
+  background-color: #f4f4f4
+  overflow: scroll
+
+.top-bar
+  height: 42px
+
 .screen
-  flex: 1
+  padding: 24px
+
+::ng-deep p-progressBar.fuel
+  > .ui-corner-all
+    border-radius: 0 3px 3px 0
+    border: 1px solid #a6a6a6
+    border-left-width: 0
+
+  > .ui-progressbar
+    height: 100%
+    background-color: white
+
+    > .ui-progressbar-label
+      line-height: 32px
+
+    > .ui-progressbar-value
+      background: #ffe399
+      border: 0 solid #a6a6a6
+      border-right-width: 1px

@@ -1,3 +1,5 @@
+*
+  font-family: "Open Sans", "Helvetica Neue", sans-serif
 
 html
   background-color: #231f20
@@ -29,7 +31,26 @@ canvas
 
 .flex
   display: flex
+  width: 100%
+
+  &.gutter:not(.column) > *:not(:last-child)
+    margin-right: 4px
 
   &.column
     flex-direction: column
     height: 100%
+
+    &.gutter > *:not(:last-child)
+      margin-bottom: 4px
+
+  &.grow > *
+    flex: 1
+
+.grow:not(.flex)
+  flex: 1
+  width: 100%
+  height: 100%
+
+.pad
+  padding: 4px
+

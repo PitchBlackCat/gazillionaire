@@ -17,7 +17,6 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
   public visible = true;
   @Input() public room: ObservableRoom;
   public error$: Observable<string>;
-  public planets$: Observable<{ label; value; }[]>;
   public ships$: Observable<{ label; value; }[]>;
   public state$: Observable<any>;
 
@@ -30,15 +29,7 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       ship: ['', [Validators.required]],
-      planet: ['', [Validators.required]]
     });
-
-    this.planets$ = this.colyseus.state$.pipe(
-      pluckMapAsArray('planets'),
-      map((ps: any[]) => ps.map(p => ({label: p.name, value: p.name}))),
-      map((ps: any[]) => [{label: 'Select a planet', value: ''}, ...ps]),
-      takeUntil(this.destroy$)
-    );
 
     this.ships$ = of(['Blue-1', 'Red-4', 'Yellow-3']).pipe(
       map((ps: any[]) => ps.map(p => ({label: p, value: p}))),
