@@ -1,10 +1,7 @@
 <div class="center">
 
   <ng-container *ngIf="!name; else ships">
-    <p-card styleClass="ui-card-shadow" [style]="{width: '220px'}">
-      <p-header>
-        Welcome!
-      </p-header>
+    <p-card styleClass="ui-card-shadow" [style]="{width: '220px'}" header="Welcome!">
       <form [formGroup]="form" (submit)="saveName()" class="center">
         <label>Name:
           <input type="text" pInputText formControlName="name"/>

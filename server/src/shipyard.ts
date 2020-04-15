@@ -43,7 +43,7 @@ export class Shipyard {
                 passenger_seats: 15,
                 hold_size: 200,
 
-                acceleration: .8,
+                acceleration: .08,
                 max_speed: .9,
 
                 max_gas: 2500,
@@ -58,7 +58,7 @@ export class Shipyard {
                 passenger_seats: 7,
                 hold_size: 100,
 
-                acceleration: .9,
+                acceleration: .09,
                 max_speed: .9,
 
                 max_gas: 1500,
@@ -88,7 +88,7 @@ export class Shipyard {
                 passenger_seats: 5,
                 hold_size: 200,
 
-                acceleration: .9,
+                acceleration: .09,
                 max_speed: .9,
 
                 max_gas: 1500,

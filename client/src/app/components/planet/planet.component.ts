@@ -16,26 +16,35 @@ import {Preloader} from '../../services/preloadjs.service';
   ]
 })
 export class PlanetComponent extends AbstractView implements OnInit {
+  holder: createjs.Container;
   sprite: createjs.Sprite;
+  @Input() planet;
 
   constructor(stageService: StageService) {
     super(stageService);
   }
 
-  @Input() planet;
-
   onTick(): void {
-    this.sprite.x = this.planet.pos.x;
-    this.sprite.y = this.planet.pos.y;
+    this.holder.x = this.planet.pos.x;
+    this.holder.y = this.planet.pos.y;
   }
 
   init(): void {
+    this.holder = new createjs.Container();
+    this.container.addChild(this.holder);
+
     const sheet = Preloader.get<createjs.SpriteSheet>('main', 'entities');
     this.sprite = new createjs.Sprite(sheet, this.planet.sprite);
     this.sprite.regX = this.sprite.getBounds().width / 2;
-    this.sprite.regY= this.sprite.getBounds().height / 2;
+    this.sprite.regY = this.sprite.getBounds().height / 2;
+    this.holder.addChild(this.sprite);
 
-    this.container.addChild(this.sprite);
+    const text = new createjs.Text(this.planet.name, "bold 16px Arial", "#ffff00");
+    text.regX = text.getBounds().width / 2;
+    text.regY = text.getBounds().height / 2;
+    text.y = 45;
+    this.holder.addChild(text);
+
     this.container.regX = this.size.cx;
     this.container.regY = this.size.cy;
   }

@@ -31,7 +31,6 @@ export class Ship extends Schema {
         distinctUntilChanged()
     );
     private _targetPlanet: Planet | null = null;
-    private drag: number = .02;
     private angle: number = 0;
 
     constructor() {
@@ -90,6 +89,7 @@ export class Ship extends Schema {
                 this.pos.x = this.target.x;
                 this.pos.y = this.target.y;
                 this.speed = 0;
+                this.burning = false;
 
                 if (this._targetPlanet) {
                     this._planet$.next(this._targetPlanet);
@@ -99,11 +99,11 @@ export class Ship extends Schema {
                 distanceTraveled = this.speed;
             }
 
-            if (this.burning) {
-                this.gas = Math.max(0, this.gas - distanceTraveled * this.efficiency);
+            if (!this.burning) {
+                this.speed = Math.max(0, this.speed - this.acceleration);
             }
 
-            this.speed = Math.max(0, this.speed - this.drag);
+            this.gas = Math.max(0, this.gas - distanceTraveled * this.efficiency);
         }
     }
 }

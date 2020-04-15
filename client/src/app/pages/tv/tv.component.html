@@ -8,6 +8,7 @@
   <app-ship
     *ngFor="let player of (players$ | async)"
     [ship]="player.ship"
+    [name]="player.name"
   ></app-ship>
 </main>
 
