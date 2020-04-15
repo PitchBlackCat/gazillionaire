@@ -1,5 +1,5 @@
 import {Schema, type} from "@colyseus/schema"
-import {canvasSize} from '../utils';
+import {CANVAS_SIZE} from '../utils';
 
 export class Vector2 extends Schema {
     @type("number")

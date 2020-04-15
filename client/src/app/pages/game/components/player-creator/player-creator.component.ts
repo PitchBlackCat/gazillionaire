@@ -14,11 +14,12 @@ import {pluckMapAsArray} from '../../../../util/selectors';
 })
 export class PlayerCreatorComponent extends Destroyable implements OnInit {
   public form: FormGroup;
-  public visible = true;
   @Input() public room: ObservableRoom;
   public error$: Observable<string>;
-  public ships$: Observable<{ label; value; }[]>;
+  public ships$: Observable<any[]>;
   public state$: Observable<any>;
+
+  public name;
 
   constructor(private fb: FormBuilder, readonly colyseus: ColyseusService) {
     super();
@@ -27,13 +28,13 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
-      ship: ['', [Validators.required]],
+      name: ['', [Validators.required]]
     });
 
-    this.ships$ = of(['Blue-1', 'Red-4', 'Yellow-3']).pipe(
-      map((ps: any[]) => ps.map(p => ({label: p, value: p}))),
-      map((ps: any[]) => [{label: 'Select a ship', value: ''}, ...ps]),
+    this.ships$ = this.colyseus.message$.pipe(
+      filter(m => m.type === 'data'),
+      filter(m => m.subject === 'ships'),
+      map(m => m.data),
       takeUntil(this.destroy$)
     );
 
@@ -46,9 +47,11 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
     if (loadedPlayer) {
       this.form.patchValue(loadedPlayer);
     }
+
+    this.colyseus.sendCommand('data','ships' );
   }
 
-  join() {
+  saveName() {
     this.form.updateValueAndValidity();
 
     if (this.form.invalid) {
@@ -56,8 +59,13 @@ export class PlayerCreatorComponent extends Destroyable implements OnInit {
       return false;
     }
 
-    this.visible = false;
-    sessionStorage.setItem('player', JSON.stringify(this.form.getRawValue()));
-    this.colyseus.sendCommand('join', this.form.getRawValue());
+    const data = this.form.getRawValue();
+    sessionStorage.setItem('player', JSON.stringify(data));
+    this.name = data.name;
+  }
+
+  join(ship: any) {
+    const data = this.form.getRawValue();
+    this.colyseus.sendCommand('join', {...data, sprite: ship.sprite});
   }
 }

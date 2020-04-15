@@ -4,11 +4,12 @@ import {Vector2} from './Vector2';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Planet} from './Planet';
 import {distinctUntilChanged} from 'rxjs/internal/operators';
+import {distance, GAME_SPEED} from '../utils';
 
 export class Ship extends Schema {
     @type("string") sprite: string = 'Blue-1';
 
-    @type("number") passenger_room_size: number = 0;
+    @type("number") passenger_seats: number = 0;
     @type("number") passengers: number = 0;
 
     @type("number") hold_size: number = 0;
@@ -19,7 +20,7 @@ export class Ship extends Schema {
 
     @type("number") acceleration: number = .2; //.1
     @type("number") max_speed: number = 10; //1
-    @type("number") speed: number = 0;
+    @type("float32") speed: number = 0;
     @type("number") gas: number = 1000;
     @type("number") max_gas: number = 1000;
     @type("number") efficiency: number = .25;
@@ -30,7 +31,7 @@ export class Ship extends Schema {
         distinctUntilChanged()
     );
     private _targetPlanet: Planet | null = null;
-    private drag: number = .1; //.01
+    private drag: number = .02;
     private angle: number = 0;
 
     constructor() {
@@ -38,7 +39,7 @@ export class Ship extends Schema {
     }
 
     private get distanceToTarget(): number {
-        return Math.sqrt((this.pos.x - this.target.x) ** 2 + (this.pos.y - this.target.y) ** 2)
+        return distance(this.pos, this.target);
     }
 
     destroy() {

@@ -1,16 +1,68 @@
-<form [formGroup]="form" (submit)="join()" class="center">
-  <p-card [style]="{width: '220px'}" styleClass="ui-card-shadow">
-    <p *ngIf="error$ | async as error">{{error}}</p>
+<div class="center">
 
-    <label>Name:
-      <input type="text" pInputText formControlName="name"/>
-    </label>
+  <ng-container *ngIf="!name; else ships">
+    <p-card styleClass="ui-card-shadow" [style]="{width: '220px'}">
+      <p-header>
+        Welcome!
+      </p-header>
+      <form [formGroup]="form" (submit)="saveName()" class="center">
+        <label>Name:
+          <input type="text" pInputText formControlName="name"/>
+        </label>
+      </form>
+      <p-footer>
+        <button type="submit" pButton label="Join" (click)="saveName()"></button>
+      </p-footer>
+    </p-card>
+  </ng-container>
 
-    <label>Ship:
-      <p-dropdown [options]="ships$ | async" formControlName="ship"></p-dropdown>
-    </label>
-    <p-footer>
-      <button type="submit" pButton label="Join"></button>
-    </p-footer>
-  </p-card>
-</form>
+  <ng-template #ships>
+    <div appRow [gutter]="true" class="pad-5">
+      <p-card
+        *ngFor="let ship of (ships$ | async)"
+        [style]="{width: '90vw', height: '100%'}"
+        styleClass="ui-card-shadow"
+
+      >
+        <h2>{{ship.name}}</h2>
+        <div appRow>
+          <span appFlexItem [grow]="true">{{ship.price | currency}}</span>
+          <button pButton label="Buy" (click)="join(ship)"></button>
+        </div>
+        <p>{{ship.description}}</p>
+        <hr>
+        <label>
+          passenger seats:
+          <strong>{{ship.passenger_seats}}</strong>
+        </label>
+
+        <label>
+          hold_size
+          <strong>{{ship.hold_size}}</strong>
+        </label>
+
+        <label>
+          acceleration
+          <strong>{{ship.acceleration}}</strong>
+        </label>
+
+        <label>
+          max_speed
+          <strong>{{ship.max_speed}}</strong>
+        </label>
+
+        <label>
+          max_gas
+          <strong>{{ship.max_gas}}</strong>
+        </label>
+
+        <label>
+          efficiency
+          <strong>{{ship.efficiency}}</strong>
+        </label>
+        <p-footer></p-footer>
+      </p-card>
+    </div>
+  </ng-template>
+
+</div>

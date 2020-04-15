@@ -12,7 +12,8 @@ export class Player extends Schema {
     @type("string") screen: Screen = '';
     @type("string") planet: string = '';
 
-    @type("number") debt: number = 0;
+    @type("number") loan: number = 0;
+    @type("number") mortgage: number = 0;
     @type("number") money: number = 0;
 
     @type(Ship) ship: Ship = new Ship();

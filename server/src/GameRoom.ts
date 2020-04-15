@@ -1,9 +1,10 @@
-import {Client, Delayed, Room} from "colyseus";
+import {Client, Presence, Room} from "colyseus";
 import {MapSchema, Schema, type} from "@colyseus/schema"
 import {createPlanets, Planet} from './model/Planet';
 import {Player} from './model/Player';
 import {Ship} from './model/Ship';
-import {canvasSize} from './utils';
+import {CANVAS_SIZE, toDataObject} from './utils';
+import {Shipyard} from './shipyard';
 
 
 // Our custom game state, an ArraySchema of type Player only at the moment
@@ -19,6 +20,13 @@ export class GameRoom extends Room<GameState> {
 
     private delayedInterval: any;
     private options: any;
+    private availableShips: any[];
+
+
+    constructor(presence: Presence) {
+        super(presence);
+        this.availableShips = Shipyard.getShips();
+    }
 
     onCreate(options: any) {
         this.options = options;
@@ -60,6 +68,9 @@ export class GameRoom extends Room<GameState> {
                 case 'travel':
                     this.onTravel(client, message.data);
                     break;
+                case 'data':
+                    this.onData(client, message.data);
+                    break;
                 default:
                     this.send(client, 'what?');
             }
@@ -69,7 +80,11 @@ export class GameRoom extends Room<GameState> {
     onJoinAsPlayer(client: Client, data: any) {
         const player = new Player();
         player.name = data.name;
-        player.ship.sprite = data.ship;
+        Shipyard.setShip(player, data.sprite);
+
+        const index = this.availableShips.findIndex(s => s.sprite == data.sprite);
+        this.availableShips.splice(index, 1);
+        this.broadcast(toDataObject('ships', this.availableShips));
 
         this.send(client, {type: 'whoami', data: client.sessionId});
         this.state.players[client.sessionId] = player;
@@ -102,8 +117,8 @@ export class GameRoom extends Room<GameState> {
     private createPlanets(num: number) {
         createPlanets().slice(0, num).forEach(p => {
             this.state.planets[p.name] = p;
-            p.pos.x = (canvasSize.width - 100) * Math.random() + 50;
-            p.pos.y = (canvasSize.height - 100) * Math.random() + 50;
+            p.pos.x = (CANVAS_SIZE.width - 100) * Math.random() + 50;
+            p.pos.y = (CANVAS_SIZE.height - 100) * Math.random() + 50;
         });
     }
 
@@ -125,5 +140,16 @@ export class GameRoom extends Room<GameState> {
         const player = this.getPlayer(client);
         const planet = this.getPlanet(data.planet);
         player.ship.setTarget(planet);
+    }
+
+    private onData(client: Client, subject: any) {
+        let data = null;
+        switch (subject) {
+            case 'ships':
+                data = Shipyard.getShips();
+                break;
+        }
+
+        this.send(client, toDataObject(subject, data));
     }
 }
