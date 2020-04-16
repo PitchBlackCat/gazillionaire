@@ -12,7 +12,11 @@ import {distinctUntilChanged, map, takeUntil} from 'rxjs/internal/operators';
 })
 export class AtPlanetComponent extends Destroyable implements OnInit {
   planet$: Observable<any>;
+  pickupDisabled: boolean;
   @Input() player: any;
+  get ship(): any {
+    return this.player.ship;
+  }
   private planets$: Observable<any>;
 
   constructor(readonly colyseus: ColyseusService) {
@@ -30,5 +34,14 @@ export class AtPlanetComponent extends Destroyable implements OnInit {
 
   leave(): void {
     this.colyseus.sendCommand('travel', {plane: null});
+  }
+
+  pickupPassengers(planet: any) {
+    this.colyseus.sendCommand('pickup_passengers', {planet: planet.name});
+    this.pickupDisabled = true;
+  }
+
+  buyGas(planet: any | null) {
+    this.colyseus.sendCommand('buy_gas', {planet: planet.name});
   }
 }

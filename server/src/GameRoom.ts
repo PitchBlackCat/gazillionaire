@@ -3,7 +3,7 @@ import {MapSchema, Schema, type} from "@colyseus/schema"
 import {createPlanets, Planet} from './model/Planet';
 import {Player} from './model/Player';
 import {Ship} from './model/Ship';
-import {CANVAS_SIZE, toDataObject} from './utils';
+import {CANVAS_SIZE, distance, GAME_SPEED, obj2arr, toDataObject} from './utils';
 import {Shipyard} from './shipyard';
 
 
@@ -18,7 +18,9 @@ class GameState extends Schema {
 
 export class GameRoom extends Room<GameState> {
 
-    private delayedInterval: any;
+    private playerLoop: any;
+    private planetLoop: any;
+
     private options: any;
     private availableShips: any[];
 
@@ -36,12 +38,18 @@ export class GameRoom extends Room<GameState> {
 
         // Set an interval and store a reference to it
         // so that we may clear it later
-        this.delayedInterval = this.clock.setInterval(() => {
+        this.playerLoop = this.clock.setInterval(() => {
             Object.keys(this.state.players)
                 .map(k => this.state.players[k])
                 .map((p: Player) => p.ship)
                 .forEach((s: Ship) => s.update());
         }, 1000 / 30);
+
+        this.planetLoop = this.clock.setInterval(() => {
+            Object.keys(this.state.planets)
+                .map(k => this.state.planets[k])
+                .forEach((p: Planet) => p.update());
+        }, 10000 / GAME_SPEED);
 
         this.clock.start();
     }
@@ -71,6 +79,12 @@ export class GameRoom extends Room<GameState> {
                 case 'data':
                     this.onData(client, message.data);
                     break;
+                case 'pickup_passengers':
+                    this.onPickupPassengers(client, message.data);
+                    break;
+                case 'buy_gas':
+                    this.onBuyGas(client, message.data);
+                    break;
                 default:
                     this.send(client, 'what?');
             }
@@ -90,12 +104,9 @@ export class GameRoom extends Room<GameState> {
         this.state.players[client.sessionId] = player;
 
         player.ship.planet$.subscribe(p => {
+            player.planet = '';
             if (p) {
-                player.planet = p.name;
-                player.screen = 'at_planet';
-            } else {
-                player.planet = '';
-                player.screen = '';
+                p.arrive(player);
             }
         });
     }
@@ -111,14 +122,23 @@ export class GameRoom extends Room<GameState> {
     }
 
     onDispose() {
-        this.delayedInterval.clear();
+        this.playerLoop.clear();
+        this.planetLoop.clear();
     }
 
     private createPlanets(num: number) {
-        createPlanets().slice(0, num).forEach(p => {
+        const planets = createPlanets().slice(0, num);
+        planets.forEach(p => {
+            p.pos.x = CANVAS_SIZE.width / 2;
+            p.pos.y = CANVAS_SIZE.height / 2;
+
+            const planetArr = obj2arr(this.state.planets);
+            while (150 > planetArr.map(pp => distance(pp.pos, p.pos)).reduce((prev, curr) => Math.min(prev, curr), CANVAS_SIZE.width)) {
+                p.pos.x = (CANVAS_SIZE.width - 100) * Math.random() + 50;
+                p.pos.y = (CANVAS_SIZE.height - 100) * Math.random() + 50;
+            }
+
             this.state.planets[p.name] = p;
-            p.pos.x = (CANVAS_SIZE.width - 100) * Math.random() + 50;
-            p.pos.y = (CANVAS_SIZE.height - 100) * Math.random() + 50;
         });
     }
 
@@ -126,13 +146,7 @@ export class GameRoom extends Room<GameState> {
         return this.state.players[client.id] || null;
     }
 
-    private getPlayerByName(name: string) {
-        return Object.keys(this.state.players)
-            .map(k => this.state.players[k])
-            .filter(p => p.name === name) || null;
-    }
-
-    private getPlanet(name: string) {
+    private getPlanet(name: string): Planet | null {
         return this.state.planets[name] || null;
     }
 
@@ -151,5 +165,17 @@ export class GameRoom extends Room<GameState> {
         }
 
         this.send(client, toDataObject(subject, data));
+    }
+
+    private onPickupPassengers(client: Client, data: any) {
+        const player = this.getPlayer(client);
+        const planet = this.getPlanet(player.planet);
+        planet.pickupPassengers(player);
+    }
+
+    private onBuyGas(client: Client, data: any) {
+        const player = this.getPlayer(client);
+        const planet = this.getPlanet(player.planet);
+        planet.buyFuel(player);
     }
 }

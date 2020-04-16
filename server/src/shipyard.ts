@@ -110,6 +110,7 @@ export class Shipyard {
         player.ship.acceleration = ship.acceleration;
         player.ship.max_speed = ship.max_speed * GAME_SPEED;
         player.ship.max_gas = ship.max_gas;
+        player.ship.gas = ship.max_gas;
         player.ship.efficiency = ship.efficiency;
     }
 }

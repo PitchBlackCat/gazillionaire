@@ -11,6 +11,7 @@ export class Player extends Schema {
     @type("string") name: string = '';
     @type("string") screen: Screen = '';
     @type("string") planet: string = '';
+    @type("string") passengers_planet: string = '';
 
     @type("number") loan: number = 0;
     @type("number") mortgage: number = 0;

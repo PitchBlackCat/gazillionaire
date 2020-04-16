@@ -6,7 +6,7 @@
     <p-accordionTab header="Ship">
       <div appColumn [gutter]="true">
         <div appRow [grow]="true" [gutter]="true">
-          <button class="ui-button-secondary" [disabled]="true" pButton label="Passengers (0/10)"></button>
+          <button class="ui-button-secondary" [disabled]="true" pButton label="Passengers ({{ship.passengers}}/{{ship.passenger_seats}})"></button>
           <button class="ui-button-secondary" [disabled]="true" pButton label="Inventory (0/50)"></button>
         </div>
         <div appColumn>
@@ -17,8 +17,8 @@
 
     <p-accordionTab header="Harbor">
       <div appColumn [gutter]="true">
-        <button class="ui-button-secondary" [disabled]="true" pButton label="Buy Fuel"></button>
-        <button class="ui-button-secondary" [disabled]="true" pButton label="Pick up passengers (8)"></button>
+        <button class="ui-button-secondary" (click)="buyGas(planet)" pButton label="Buy Fuel"></button>
+        <button class="ui-button-secondary" [disabled]="player.passengers_planet == planet.name" (click)="pickupPassengers(planet)" pButton label="Pick up passengers ({{planet.passengers}})"></button>
         <button class="ui-button-secondary" [disabled]="true" pButton label="Pay Taxes ($108)"></button>
       </div>
     </p-accordionTab>
